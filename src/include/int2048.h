@@ -81,6 +81,20 @@ public:
   friend bool operator>(const int2048 &, const int2048 &);
   friend bool operator<=(const int2048 &, const int2048 &);
   friend bool operator>=(const int2048 &, const int2048 &);
+
+private:
+  // Digits stored little-endian, each element is a single decimal digit (0-9)
+  std::vector<int> digits;
+  bool sign; // false = non-negative, true = negative
+
+  void normalize();
+  bool isZero() const;
+  void absAdd(const int2048 &);   // this += other, both non-negative
+  void absSub(const int2048 &);   // this -= other, this >= other >= 0
+  bool absLess(const int2048 &) const;
+  bool absEqual(const int2048 &) const;
+  int2048 absMul(const int2048 &) const;
+  int2048 absDiv(const int2048 &) const;  // floor division of magnitudes (truncates toward zero for positive)
 };
 } // namespace sjtu
 
